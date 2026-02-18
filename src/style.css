@@ -1,0 +1,159 @@
+body { margin:0; font-family: Arial, sans-serif; }
+video { filter: brightness(0.55); }
+/* FOOTER */
+.footer {
+  margin-top: 100px;
+  padding: 40px 20px;
+  background: #020617; /* dark blue-black */
+  color: #e5e7eb;
+  text-align: center;
+}
+
+.footer p {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.footer div {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer a {
+  color: #22c55e; /* Ajira green */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 640px) {
+  .info-section {
+    padding: 32px 20px;
+  }
+
+  .footer div {
+    gap: 14px;
+  }
+}
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: #1a202c; /* dark text */
+  margin-bottom: 16px;
+}
+
+.page-description {
+  font-size: 1.2rem;
+  color: #4a5568; /* gray text */
+}
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.course-card {
+  background-color: #f7fafc; /* light gray */
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.course-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.course-card p {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  color: #4a5568;
+}
+
+.course-level {
+  font-weight: bold;
+  background-color: #edf2f7;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #2d3748;
+}
+.lessons-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lesson-card {
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background-color: #f7fafc;
+}
+
+.lesson-card h3 {
+  margin-bottom: 10px;
+  color: #1a202c;
+}
+
+.lesson-diagram {
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.lesson-video {
+  width: 100%;
+  max-height: 400px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+.lessons-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lesson-card {
+  padding: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background-color: #f7fafc;
+}
+
+.lesson-card h3 {
+  margin-bottom: 10px;
+  color: #1a202c;
+}
+
+.lesson-diagram {
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.lesson-video {
+  width: 100%;
+  max-height: 400px;
+  margin-top: 10px;
+  border-radius: 8px;
+}

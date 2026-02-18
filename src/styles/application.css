@@ -1,0 +1,145 @@
+/* ===== APPLICATION PAGE CONTAINER ===== */
+.application-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: #f4f4f4;
+  min-height: 100vh;
+}
+
+/* ===== CARD ===== */
+.application-card {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ===== TITLE ===== */
+.application-card h2 {
+  color: #0055ff;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ===== AMOUNT ===== */
+.application-card .amount {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+}
+
+/* ===== STATUS ===== */
+.status {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+  margin: 10px 0;
+}
+
+.status.pending {
+  background-color: #facc15; /* yellow */
+}
+
+.status.approved {
+  background-color: #10b981; /* green */
+}
+
+.status.rejected {
+  background-color: #ef4444; /* red */
+}
+
+/* ===== FORM MESSAGES ===== */
+.form-message {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+/* ===== INPUTS & TEXTAREA ===== */
+.application-card input,
+.application-card textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.application-card input:focus,
+.application-card textarea:focus {
+  border-color: #0055ff;
+  box-shadow: 0 0 0 2px rgba(0,85,255,0.15);
+}
+
+.application-card textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ===== BUTTONS ===== */
+.application-card button {
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #10b981;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.application-card button:hover {
+  background-color: #059669;
+}
+
+/* ===== CANCEL / BACK BUTTON ===== */
+.application-card .back-btn {
+  background-color: #ef4444;
+}
+
+.application-card .back-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .application-card {
+    padding: 20px 15px;
+  }
+
+  .application-card h2 {
+    font-size: 22px;
+  }
+
+  .application-card .amount {
+    font-size: 16px;
+  }
+
+  .application-card input,
+  .application-card textarea {
+    font-size: 14px;
+  }
+
+  .application-card button {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "HTML for Beginners",
+    "description": "Learn the basics of HTML, structure your webpages and start your web journey.",
+    "level": "Beginner"
+  },
+  {
+    "id": 2,
+    "title": "Ethical Hacking",
+    "description": "Learn penetration testing, cybersecurity fundamentals and ethical hacking techniques.",
+    "level": "Advanced"
+  },
+  {
+    "id": 3,
+    "title": "CSS Fundamentals",
+    "description": "Style your web pages with CSS, layouts, and responsive design.",
+    "level": "Beginner"
+  },
+  {
+    "id": 4,
+    "title": "JavaScript Basics",
+    "description": "Learn JS fundamentals to make your web pages interactive.",
+    "level": "Beginner"
+  }
+]

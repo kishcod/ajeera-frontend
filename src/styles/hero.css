@@ -1,0 +1,48 @@
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.hero-title span {
+  color: #16a34a; /* Ajira green */
+}
+/* hero.css */
+
+/* Common button styles */
+.btn-primary,
+.btn-outline {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+/* Primary button - Sign Up */
+.btn-primary {
+  background-color: #22c55e; /* Green */
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #16a34a; /* Darker green on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Outline button - Login */
+.btn-outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: #22c55e;
+  color: #22c55e;
+}
