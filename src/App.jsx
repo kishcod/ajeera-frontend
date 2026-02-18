@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Pages
 import Home from "./pages/Home";
-import Signup from "./pages/mtutu";
+import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Courses from "./pages/Courses";
 import Jobs from "./pages/Jobs";
