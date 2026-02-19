@@ -420,19 +420,6 @@
     padding: 10px 14px;
   }
 
-  .social-proof img {
-    width: 36px;
-    height: 36px;
-  }
-
-  .social-proof strong {
-    font-size: 13px;
-  }
-
-  .social-proof p {
-    font-size: 12px;
-  }
-}
 .signup-card {
   width: 100%;
   max-width: 400px;
@@ -495,5 +482,47 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 
   z-index: 1000;
+}
+.social-proof {
+  position: fixed;
+  bottom: 100px; /* space above footer */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border: 1px solid #10b981;
+  border-radius: 16px;
+  padding: 12px 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 90%;
+  max-width: 350px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+.social-proof img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #10b981;
+}
+.social-proof {
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
 }
 
