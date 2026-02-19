@@ -433,3 +433,36 @@
     font-size: 12px;
   }
 }
+.signup-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 25px;
+  border-radius: 16px;
+}
+@media (max-width: 600px) {
+  .signup-card {
+    padding: 20px;
+  }
+
+  .signup-card h1 {
+    font-size: 22px;
+  }
+
+  .signup-card input {
+    height: 42px;
+  }
+}
+body, html {
+  height: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
