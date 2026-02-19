@@ -525,4 +525,72 @@ body {
     opacity: 1;
   }
 }
+/* ===============================
+   SOCIAL PROOF (Footer Centered)
+================================= */
+.social-proof {
+  position: fixed;
+  bottom: 80px; /* sits above footer */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+
+  padding: 12px 18px;
+  border-radius: 50px;
+
+  max-width: 90%;
+  width: fit-content;
+
+  box-shadow: 0 8px 25px rgba(0, 255, 150, 0.15);
+  border: 1px solid rgba(0, 255, 150, 0.2);
+
+  animation: slideUp 0.6s ease;
+  z-index: 999;
+}
+
+/* Image */
+.social-proof img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #22c55e;
+  object-fit: cover;
+}
+
+/* Text */
+.social-proof span {
+  font-size: 14px;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+/* Slide Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .social-proof {
+    bottom: 70px;
+    padding: 10px 14px;
+  }
+
+  .social-proof span {
+    font-size: 13px;
+  }
+}
 
