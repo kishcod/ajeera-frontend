@@ -1,5 +1,6 @@
 // src/pages/Admin.jsx
 import React, { useState, useEffect } from "react";
+import { API_URL } from "../config";
 import "../styles/admin.css";
 
 export default function Admin() {
