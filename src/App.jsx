@@ -28,19 +28,15 @@ export default function App() {
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <div style={{ flex: 1 }}>
           <Routes>
-            {/* ===== PUBLIC ===== */}
+            {/* ===== PUBLIC PAGES ===== */}
             <Route path="/" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/contact" element={<Contact />} />
 
-            {/* ===== PROTECTED ===== */}
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
+            {/* ===== PROTECTED PAGES ===== */}
+            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
             <Route path="/courses/:id" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
             <Route path="/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
@@ -48,21 +44,11 @@ export default function App() {
             <Route path="/data-offers" element={<ProtectedRoute><DataOffers /></ProtectedRoute>} />
             <Route path="/loans" element={<ProtectedRoute><Loans /></ProtectedRoute>} />
             <Route path="/blogs" element={<ProtectedRoute><Blogs /></ProtectedRoute>} />
-            <Route path="/privacy" element={<ProtectedRoute><Privacy /></ProtectedRoute>} />
-            <Route path="/terms" element={<ProtectedRoute><Terms /></ProtectedRoute>} />
-            <Route path="/contact" element={<ProtectedRoute><Contact /></ProtectedRoute>} />
 
-            {/* ===== LOAN APPLICATION ===== */}
-            <Route
-              path="/apply-loan/:loanType"
-              element={
-                <ProtectedRoute>
-                  <ApplicationFormPage />
-                </ProtectedRoute>
-              }
-            />
+            {/* Loan application */}
+            <Route path="/apply-loan/:loanType" element={<ProtectedRoute><ApplicationFormPage /></ProtectedRoute>} />
 
-            {/* ===== ADMIN ===== */}
+            {/* Admin */}
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="/admin/*" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
 
