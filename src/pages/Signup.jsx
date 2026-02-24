@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { API_URL } from "../config";
-
 import "../styles/auth.css";
 
 export default function Signup() {
@@ -25,53 +23,22 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // ------------------------------
-  // Social proof notifications
-  // ------------------------------
   const notifications = [
-    {
-      name: "Kenedy",
-      phone: "+254xxx3355",
-      msg: "joined Premium",
-      img: "/assets/profiles/kenedy.jpg",
-    },
-    {
-      name: "Mike Lucy",
-      phone: "",
-      msg: "got Ksh 25k grant",
-      img: "/assets/profiles/mike.jpg",
-    },
-    {
-      name: "Alice W.",
-      phone: "",
-      msg: "joined Premium",
-      img: "/assets/profiles/alice.jpg",
-    },
-    {
-      name: "John K.",
-      phone: "",
-      msg: "got Ksh 50k grant",
-      img: "/assets/profiles/john.jpg",
-    },
-    {
-      name: "Mary L.",
-      phone: "",
-      msg: "joined Premium",
-      img: "/assets/profiles/mary.jpg",
-    },
+    { name: "Kenedy", phone: "+254xxx3355", msg: "joined Premium", img: "/assets/profiles/kenedy.jpg" },
+    { name: "Mike Lucy", phone: "", msg: "got Ksh 25k grant", img: "/assets/profiles/mike.jpg" },
+    { name: "Alice W.", phone: "", msg: "joined Premium", img: "/assets/profiles/alice.jpg" },
+    { name: "John K.", phone: "", msg: "got Ksh 50k grant", img: "/assets/profiles/john.jpg" },
+    { name: "Mary L.", phone: "", msg: "joined Premium", img: "/assets/profiles/mary.jpg" },
   ];
 
   const [currentNotification, setCurrentNotification] = useState(0);
 
-  // Preload images for instant display
+  // Preload notification images
   useEffect(() => {
-    notifications.forEach((n) => {
-      const img = new Image();
-      img.src = n.img;
-    });
+    notifications.forEach((n) => new Image().src = n.img);
   }, []);
 
-  // Rotate notifications every 3 seconds
+  // Rotate notifications
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentNotification((prev) => (prev + 1) % notifications.length);
@@ -79,11 +46,7 @@ export default function Signup() {
     return () => clearInterval(interval);
   }, []);
 
-  // ------------------------------
-  // Handlers
-  // ------------------------------
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handlePremiumYes = () => {
     setForm({ ...form, premium: "yes" });
@@ -91,11 +54,7 @@ export default function Signup() {
   };
 
   const handlePayNow = () => {
-    // Replace link with your actual Payheero payment URL
-    window.open(
-      "https://short.payhero.co.ke/s/cwNCH9UPvaHGn9chVyr5iW",
-      "_blank"
-    );
+    window.open("https://short.payhero.co.ke/s/cwNCH9UPvaHGn9chVyr5iW", "_blank");
     setForm({ ...form, premiumPaid: 1 });
     setShowModal(false);
     alert("Payment successful! You can now finish signup.");
@@ -116,14 +75,18 @@ export default function Signup() {
     }
 
     setLoading(true);
+
     try {
-     const res = await fetch(`${API_URL}/api/auth/register`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(form),
-});
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:10000";
+
+      const res = await fetch(`${API_URL}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
       const data = await res.json();
+
       if (!res.ok) {
         setError(data.message || "Signup failed");
         return;
@@ -139,35 +102,17 @@ export default function Signup() {
     }
   };
 
-  // ------------------------------
-  // Render
-  // ------------------------------
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>
-          <span>Ajira</span> Sign Up
-        </h1>
+        <h1><span>Ajira</span> Sign Up</h1>
         <p>Create your digital account</p>
 
         {error && <p className="auth-error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          <input
-            name="name"
-            placeholder="Full Name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
+          <input name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
+          <input type="email" name="email" placeholder="Email Address" value={form.email} onChange={handleChange} required />
 
           <div className="password-wrapper">
             <input
@@ -178,10 +123,7 @@ export default function Signup() {
               onChange={handleChange}
               required
             />
-            <span
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-            >
+            <span className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </span>
           </div>
@@ -195,43 +137,19 @@ export default function Signup() {
               onChange={handleChange}
               required
             />
-            <span
-              className="toggle-password"
-              onClick={() => setShowConfirm(!showConfirm)}
-            >
+            <span className="toggle-password" onClick={() => setShowConfirm(!showConfirm)}>
               {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
             </span>
           </div>
 
-          <input
-            type="number"
-            name="age"
-            placeholder="Age"
-            value={form.age}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={form.phone}
-            onChange={handleChange}
-            required
-          />
+          <input type="number" name="age" placeholder="Age" value={form.age} onChange={handleChange} required />
+          <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} required />
 
-          {/* Premium Membership */}
           <div className="premium-section">
             <p>Join Premium Membership?</p>
             <div className="radio-group small-radio">
               <label>
-                <input
-                  type="radio"
-                  name="premium"
-                  value="yes"
-                  checked={form.premium === "yes"}
-                  onChange={handlePremiumYes}
-                />
+                <input type="radio" name="premium" value="yes" checked={form.premium === "yes"} onChange={handlePremiumYes} />
                 <span>Yes</span>
               </label>
               <label>
@@ -241,9 +159,7 @@ export default function Signup() {
             </div>
           </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating..." : "Create Account"}
-          </button>
+          <button type="submit" disabled={loading}>{loading ? "Creating..." : "Create Account"}</button>
         </form>
 
         <p className="auth-footer">
@@ -251,7 +167,6 @@ export default function Signup() {
         </p>
       </div>
 
-      {/* Premium Modal */}
       {showModal && (
         <div className="modal-backdrop">
           <div className="modal-card">
@@ -263,27 +178,17 @@ export default function Signup() {
             </ul>
             <p>Premium deposit: Ksh 100</p>
             <div className="modal-actions">
-              <button className="pay-btn" onClick={handlePayNow}>
-                Pay Now
-              </button>
-              <button className="cancel-btn" onClick={() => setShowModal(false)}>
-                Cancel
-              </button>
+              <button className="pay-btn" onClick={handlePayNow}>Pay Now</button>
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Social Proof Notification */}
       <div className="social-proof">
-        <img
-          src={notifications[currentNotification].img}
-          alt={notifications[currentNotification].name}
-        />
+        <img src={notifications[currentNotification].img} alt={notifications[currentNotification].name} />
         <span>
-          {notifications[currentNotification].name}{" "}
-          {notifications[currentNotification].phone}{" "}
-          {notifications[currentNotification].msg}
+          {notifications[currentNotification].name} {notifications[currentNotification].phone} {notifications[currentNotification].msg}
         </span>
       </div>
     </div>
