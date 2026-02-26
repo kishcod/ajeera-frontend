@@ -11,8 +11,6 @@ export default function Signup() {
     email: "",
     password: "",
     confirmPassword: "",
-    age: "",
-    phone: "",
     premium: "no",
     premiumPaid: 0,
   });
@@ -23,20 +21,16 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // Social proof notifications
   const notifications = [
-    { name: "Kenedy", phone: "+254xxx3355", msg: "joined Premium", img: "/assets/profiles/kenedy.jpg" },
-    { name: "Mike Lucy", phone: "", msg: "got Ksh 25k grant", img: "/assets/profiles/mike.jpg" },
-    { name: "Alice W.", phone: "", msg: "joined Premium", img: "/assets/profiles/alice.jpg" },
-    { name: "John K.", phone: "", msg: "got Ksh 50k grant", img: "/assets/profiles/john.jpg" },
-    { name: "Mary L.", phone: "", msg: "joined Premium", img: "/assets/profiles/mary.jpg" },
+    { name: "Kenedy", msg: "joined Premium", img: "/assets/profiles/kenedy.jpg" },
+    { name: "Mike Lucy", msg: "got Ksh 25k grant", img: "/assets/profiles/mike.jpg" },
+    { name: "Alice W.", msg: "joined Premium", img: "/assets/profiles/alice.jpg" },
+    { name: "John K.", msg: "got Ksh 50k grant", img: "/assets/profiles/john.jpg" },
+    { name: "Mary L.", msg: "joined Premium", img: "/assets/profiles/mary.jpg" },
   ];
 
   const [currentNotification, setCurrentNotification] = useState(0);
-
-  // Preload notification images
-  useEffect(() => {
-    notifications.forEach((n) => new Image().src = n.img);
-  }, []);
 
   // Rotate notifications
   useEffect(() => {
@@ -75,9 +69,8 @@ export default function Signup() {
     }
 
     setLoading(true);
-
     try {
-      const API_URL = process.env.REACT_APP_API_URL;
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
       const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
@@ -142,9 +135,6 @@ export default function Signup() {
             </span>
           </div>
 
-          <input type="number" name="age" placeholder="Age" value={form.age} onChange={handleChange} required />
-          <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} required />
-
           <div className="premium-section">
             <p>Join Premium Membership?</p>
             <div className="radio-group small-radio">
@@ -167,6 +157,7 @@ export default function Signup() {
         </p>
       </div>
 
+      {/* Premium Modal */}
       {showModal && (
         <div className="modal-backdrop">
           <div className="modal-card">
@@ -185,10 +176,11 @@ export default function Signup() {
         </div>
       )}
 
+      {/* Social proof */}
       <div className="social-proof">
         <img src={notifications[currentNotification].img} alt={notifications[currentNotification].name} />
         <span>
-          {notifications[currentNotification].name} {notifications[currentNotification].phone} {notifications[currentNotification].msg}
+          {notifications[currentNotification].name} {notifications[currentNotification].msg}
         </span>
       </div>
     </div>
