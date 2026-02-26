@@ -33,7 +33,7 @@ export default function Signup() {
 
   const [currentNotification, setCurrentNotification] = useState(0);
 
-  // Preload notification images
+  // Preload images
   useEffect(() => {
     notifications.forEach((n) => new Image().src = n.img);
   }, []);
@@ -46,7 +46,9 @@ export default function Signup() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handlePremiumYes = () => {
     setForm({ ...form, premium: "yes" });
@@ -54,8 +56,9 @@ export default function Signup() {
   };
 
   const handlePayNow = () => {
+    // Simulate successful payment
     window.open("https://short.payhero.co.ke/s/cwNCH9UPvaHGn9chVyr5iW", "_blank");
-    setForm({ ...form, premiumPaid: 1 });
+    setForm((prev) => ({ ...prev, premiumPaid: 1 }));
     setShowModal(false);
     alert("Payment successful! You can now finish signup.");
   };
@@ -77,17 +80,17 @@ export default function Signup() {
     setLoading(true);
 
     try {
-      const API_URL = process.env.REACT_APP_API_URL;
+      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-      const res = await fetch(`${API_URL}/api/auth/register`, {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (!res.ok) {
+      if (!response.ok) {
         setError(data.message || "Signup failed");
         return;
       }
@@ -95,8 +98,8 @@ export default function Signup() {
       alert("Signup successful! You can now login.");
       navigate("/login");
     } catch (err) {
-      console.error(err);
-      setError("Server error, please try again later.");
+      console.error("Signup error:", err);
+      setError("Server error. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -111,8 +114,21 @@ export default function Signup() {
         {error && <p className="auth-error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          <input name="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Email Address" value={form.email} onChange={handleChange} required />
+          <input
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
           <div className="password-wrapper">
             <input
@@ -142,14 +158,34 @@ export default function Signup() {
             </span>
           </div>
 
-          <input type="number" name="age" placeholder="Age" value={form.age} onChange={handleChange} required />
-          <input type="tel" name="phone" placeholder="Phone Number" value={form.phone} onChange={handleChange} required />
+          <input
+            type="number"
+            name="age"
+            placeholder="Age"
+            value={form.age}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            value={form.phone}
+            onChange={handleChange}
+            required
+          />
 
           <div className="premium-section">
             <p>Join Premium Membership?</p>
             <div className="radio-group small-radio">
               <label>
-                <input type="radio" name="premium" value="yes" checked={form.premium === "yes"} onChange={handlePremiumYes} />
+                <input
+                  type="radio"
+                  name="premium"
+                  value="yes"
+                  checked={form.premium === "yes"}
+                  onChange={handlePremiumYes}
+                />
                 <span>Yes</span>
               </label>
               <label>
@@ -159,7 +195,9 @@ export default function Signup() {
             </div>
           </div>
 
-          <button type="submit" disabled={loading}>{loading ? "Creating..." : "Create Account"}</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Create Account"}
+          </button>
         </form>
 
         <p className="auth-footer">
