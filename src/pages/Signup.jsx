@@ -56,7 +56,7 @@ export default function Signup() {
   };
 
   const handlePayNow = () => {
-    // Simulate successful payment
+    // Simulate payment success
     window.open("https://short.payhero.co.ke/s/cwNCH9UPvaHGn9chVyr5iW", "_blank");
     setForm((prev) => ({ ...prev, premiumPaid: 1 }));
     setShowModal(false);
@@ -80,7 +80,7 @@ export default function Signup() {
     setLoading(true);
 
     try {
-      const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+      const API_URL = process.env.REACT_APP_API_URL || "https://ajeera-bc.onrender.com";
 
       const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
@@ -88,9 +88,18 @@ export default function Signup() {
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch (err) {
+        const text = await response.text();
+        console.error("Backend returned non-JSON:", text);
+        setError("Server returned invalid response");
+        return;
+      }
 
       if (!response.ok) {
+        console.error("Signup failed:", data);
         setError(data.message || "Signup failed");
         return;
       }
@@ -98,7 +107,7 @@ export default function Signup() {
       alert("Signup successful! You can now login.");
       navigate("/login");
     } catch (err) {
-      console.error("Signup error:", err);
+      console.error("Network/server error:", err);
       setError("Server error. Please try again later.");
     } finally {
       setLoading(false);
@@ -232,3 +241,4 @@ export default function Signup() {
     </div>
   );
 }
+
