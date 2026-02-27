@@ -10,38 +10,45 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message || "Login failed");
+        setError(data.message || "Invalid email or password");
         return;
       }
 
-      // 🔐 Store JWT + user info
+      // Store token + user
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      // 🔁 Redirect
+      // Redirect properly
       if (data.user.role === "admin") {
         navigate("/admin/dashboard", { replace: true });
       } else {
-        navigate("/", { replace: true }); // go to Home for regular users
+        navigate("/home", { replace: true });
       }
+
     } catch (err) {
       console.error(err);
-      alert("Server error");
+      setError("Server not responding. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -54,6 +61,8 @@ export default function Login() {
           <span>Ajira</span> Login
         </h1>
         <p>Access your digital opportunities</p>
+
+        {error && <p className="auth-error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -86,10 +95,9 @@ export default function Login() {
         </form>
 
         <p className="auth-footer">
-          Don’t have an account? <Link to="/signup">Sign Up</Link>
+          Don’t have an account? <Link to="/">Sign Up</Link>
         </p>
       </div>
     </div>
   );
 }
-
