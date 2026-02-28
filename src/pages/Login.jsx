@@ -12,7 +12,9 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  // ✅ Safe API URL fallback
+  const API_URL = import.meta.env.VITE_API_URL || "https://ajeera-bc.onrender.com";
+  console.log("API URL =", API_URL);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +30,14 @@ export default function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await res.json();
+      // ✅ Safe JSON parsing
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        setError("Server returned an invalid response");
+        return;
+      }
 
       if (!res.ok) {
         setError(data.message || "Invalid email or password");
@@ -39,7 +48,7 @@ export default function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Redirect properly
+      // Redirect based on role
       if (data.user.role === "admin") {
         navigate("/admin/dashboard", { replace: true });
       } else {
@@ -47,7 +56,7 @@ export default function Login() {
       }
 
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
       setError("Server not responding. Please try again.");
     } finally {
       setLoading(false);
@@ -57,9 +66,7 @@ export default function Login() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>
-          <span>Ajira</span> Login
-        </h1>
+        <h1><span>Ajira</span> Login</h1>
         <p>Access your digital opportunities</p>
 
         {error && <p className="auth-error">{error}</p>}
