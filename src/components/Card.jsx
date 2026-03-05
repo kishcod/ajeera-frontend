@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Card.css";
 
-export default function Card({ title, range, disabled = false, onClick }) {
+export default function Card({ 
+  title, 
+  range, 
+  isPremiumUser = false, 
+  premiumOnly = false 
+}) {
+
+  const navigate = useNavigate();
+
   const routes = {
     Jobs: "/jobs",
     Careers: "/careers",
@@ -13,15 +21,26 @@ export default function Card({ title, range, disabled = false, onClick }) {
     Courses: "/courses",
   };
 
+  const handleClick = (e) => {
+    if (premiumOnly && !isPremiumUser) {
+      e.preventDefault();
+      alert("This feature is available for Premium users only.");
+      return;
+    }
+
+    navigate(routes[title]);
+  };
+
   return (
-    <Link
-      to={disabled ? "#" : routes[title]}
-      className={`card ${disabled ? "disabled" : ""}`}
-      onClick={onClick}
+    <div
+      className={`card ${premiumOnly && !isPremiumUser ? "locked" : ""}`}
+      onClick={handleClick}
     >
-      {disabled && <div className="lock-overlay">🔒</div>}
+      {premiumOnly && !isPremiumUser && (
+        <div className="lock-overlay">🔒</div>
+      )}
       <h3>{title}</h3>
       <p>Age: {range}</p>
-    </Link>
+    </div>
   );
 }
