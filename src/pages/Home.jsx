@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Hero from "../components/Hero";
 import AgeFilter from "../components/AgeFilter";
@@ -7,13 +6,12 @@ import Stats from "../components/stats";
 import "../styles/home.css";
 
 export default function Home() {
-
   const [age, setAge] = useState(18);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
 
   const token = localStorage.getItem("token");
 
-  // Fetch premium status from backend
+  // Check premium status from backend
   useEffect(() => {
     const checkPremium = async () => {
       try {
@@ -30,9 +28,7 @@ export default function Home() {
       }
     };
 
-    if (token) {
-      checkPremium();
-    }
+    if (token) checkPremium();
   }, [token]);
 
   const items = [
@@ -51,10 +47,7 @@ export default function Home() {
       <Stats />
 
       <section className="home-section">
-
-        <h2 className="section-title">
-          Explore Digital Opportunities
-        </h2>
+        <h2 className="section-title">Explore Digital Opportunities</h2>
 
         <p className="section-subtitle">
           Opportunities tailored to your age and skills
@@ -64,7 +57,6 @@ export default function Home() {
 
         <div className="cards-wrapper">
           <div className="cards">
-
             {items
               .filter((item) => age >= item.min && age <= item.max)
               .map((item, index) => (
@@ -76,14 +68,11 @@ export default function Home() {
                   isPremiumUser={isPremiumUser}
                 />
               ))}
-
           </div>
         </div>
-
       </section>
 
       <section className="info-section">
-
         <h2>About Ajira Digital</h2>
 
         <p>
@@ -97,7 +86,6 @@ export default function Home() {
           <li>✔ Career growth pathways</li>
           <li>✔ News, blogs & resources</li>
         </ul>
-
       </section>
     </>
   );
