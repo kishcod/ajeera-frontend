@@ -11,6 +11,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const isLoggedIn = !!localStorage.getItem("token");
+  const isPremium = localStorage.getItem("premium") === "true";
 
   const items = [
     { t: "Jobs", min: 18, max: 35 },
@@ -22,11 +23,21 @@ export default function Home() {
     { t: "Courses", min: 15, max: 60 },
   ];
 
-  const handleCardClick = (disabled) => {
-    if (disabled) {
+  const handleCardClick = () => {
+    if (!isLoggedIn) {
       alert("🔒 Signup first to continue!");
-      navigate("/", { replace: true }); // redirect to signup
+      navigate("/signup");
+      return;
     }
+
+    if (!isPremium) {
+      alert("💎 Please upgrade to Premium to access this feature.");
+      navigate("/pricing"); // your premium page
+      return;
+    }
+
+    // If premium allow access
+    navigate("/dashboard");
   };
 
   return (
@@ -51,8 +62,7 @@ export default function Home() {
                   key={index}
                   title={item.t}
                   range={`${item.min}-${item.max}`}
-                  disabled={!isLoggedIn}
-                  onClick={() => handleCardClick(!isLoggedIn)}
+                  onClick={handleCardClick}
                 />
               ))}
           </div>
