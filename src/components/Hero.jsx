@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../styles/hero.css";
 
 export default function Hero() {
@@ -20,24 +19,10 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9))",
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9))",
         }}
       />
-
-      {/* AUTH BUTTONS */}
-      <div
-        style={{
-          position: "absolute",
-          top: 24,
-          right: 28,
-          display: "flex",
-          gap: 12,
-          zIndex: 3,
-        }}
-      >
-        <Link className="btn-outline" to="/login">Login</Link>
-        <Link className="btn-primary" to="/signup">Sign Up</Link>
-      </div>
 
       <div style={{ textAlign: "center", zIndex: 2, maxWidth: 700 }}>
         <video
